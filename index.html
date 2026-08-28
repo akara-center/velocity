@@ -153,19 +153,17 @@
   .hero{
     padding-block:clamp(28px, 5vw, 56px) clamp(36px, 6vw, 64px);
   }
-  .hero__grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:clamp(28px, 5vw, 48px);
-    align-items:stretch;
+  /* Контент першого екрану та фото Hero — окремі контейнери.
+     Тому фото завжди йде під текстом, незалежно від ширини екрана. */
+  .hero__content{
+    text-align:center;
+    max-width:900px;
+    margin-inline:auto;
   }
-  .hero__grid > .reveal{
+  .hero__content > .reveal{
     display:flex;
     flex-direction:column;
-    justify-content:center;
-  }
-  @media (min-width:900px){
-    .hero__grid{grid-template-columns:1.08fr 0.92fr;}
+    align-items:center;
   }
   .hero__eyebrow{
     display:inline-block;
@@ -185,10 +183,10 @@
     font-size:clamp(1rem, 0.94rem + 0.4vw, 1.18rem);
     color:var(--ink-soft);
     max-width:52ch;
-    margin-bottom:22px;
+    margin:0 auto 22px;
   }
   .hero__actions{
-    display:flex; flex-wrap:wrap; align-items:center; gap:18px;
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:18px;
     margin-bottom:22px;
   }
   .btn-primary{
@@ -212,11 +210,14 @@
     background:var(--tint); border:1px solid var(--tint-strong);
     padding:8px 16px; border-radius:999px; white-space:nowrap;
   }
+  .hero__visual-wrap{
+    margin-top:clamp(28px, 4vw, 44px);
+  }
   .hero__visual{
     position:relative;
-    align-self:end;
+    width:100%;
     border-radius:var(--radius-lg);
-    aspect-ratio:5/4.2;
+    aspect-ratio:15/9;
     overflow:hidden;
     background:linear-gradient(160deg, var(--tint) 0%, var(--tint-strong) 100%);
     border:1px dashed var(--accent-deep);
@@ -575,7 +576,8 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero">
-    <div class="container hero__grid">
+    <!-- Окремий контейнер першого екрану: текст, CTA та буліти -->
+    <div class="container hero__content">
       <div class="reveal">
         <h1 class="hero__title"><!-- data-i18n прибрано: рядок містить вкладений <span> для nowrap, при перекладі редагувати вручну -->Отримайте варіанти корпоративного велозаходу <span style="white-space:nowrap;">для вашої команди</span></h1>
         <p class="hero__lead" data-i18n="hero.lead">Професійно проводимо велопрогулянки й тімбілдинги в Києві та області під будь-який рівень підготовки команди — від 5 до 100+ учасників. Ви лишаєте заявку, ми беремо організацію на себе.</p>
@@ -591,6 +593,10 @@
           <li class="pill" data-i18n="hero.pill3">Враження, що надихають</li>
         </ul>
       </div>
+    </div>
+
+    <!-- Окремий контейнер під першим екраном: Hero-слайдер -->
+    <div class="container hero__visual-wrap">
       <div class="hero__visual reveal" id="heroSlider" aria-label="Фото команд на корпоративних велозаходах VeloCity">
         <div class="hero__visual-fallback">Фото команд на велозаході<br>(додайте файли assets/hero-1.jpg, hero-2.jpg…)</div>
         <img class="hero__slide is-active" src="assets/hero-1.jpg" alt="Команда на корпоративному велозаході VeloCity" onerror="this.dataset.broken='1';this.style.display='none';">
