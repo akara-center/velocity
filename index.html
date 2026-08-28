@@ -157,7 +157,12 @@
     display:grid;
     grid-template-columns:1fr;
     gap:clamp(28px, 5vw, 48px);
-    align-items:center;
+    align-items:stretch;
+  }
+  .hero__grid > .reveal{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
   }
   @media (min-width:900px){
     .hero__grid{grid-template-columns:1.08fr 0.92fr;}
@@ -209,6 +214,7 @@
   }
   .hero__visual{
     position:relative;
+    align-self:end;
     border-radius:var(--radius-lg);
     aspect-ratio:5/4.2;
     overflow:hidden;
@@ -720,9 +726,13 @@
         <h2 class="section-title" data-i18n="about.title">Наша команда</h2>
       </div>
 
-      <div class="about__team-photo reveal">
-        <div class="about__team-photo-fallback">Фото команди<br>(додайте файл assets/team-photo.jpg)</div>
-        <img src="assets/team-photo.jpg" alt="Команда VeloCity на корпоративному велозаході" onerror="this.style.display='none';">
+      <div class="about__team-photo reveal" id="teamSlider" aria-label="Фото команди VeloCity">
+        <div class="about__team-photo-fallback">Фото команди<br>(додайте файли assets/team-photo.jpg, team-photo-2.jpg…)</div>
+        <img class="hero__slide is-active" src="assets/team-photo.jpg" alt="Команда VeloCity на корпоративному велозаході" onerror="this.dataset.broken='1';this.style.display='none';">
+        <img class="hero__slide" src="assets/team-photo-2.jpg" alt="Команда VeloCity на корпоративному велозаході" onerror="this.dataset.broken='1';this.style.display='none';">
+        <img class="hero__slide" src="assets/team-photo-3.jpg" alt="Команда VeloCity на корпоративному велозаході" onerror="this.dataset.broken='1';this.style.display='none';">
+        <img class="hero__slide" src="assets/team-photo-4.jpg" alt="Команда VeloCity на корпоративному велозаході" onerror="this.dataset.broken='1';this.style.display='none';">
+        <div class="hero__dots" aria-hidden="true"></div>
       </div>
 
       <div class="about__team-caption reveal">
@@ -955,13 +965,14 @@
     revealEls.forEach(function(el){ io.observe(el); });
   }
 
-  /* ---------- Hero photo slider ---------- */
-  (function(){
-    var slider = document.getElementById('heroSlider');
+  /* ---------- Photo sliders: Hero + "Наша команда" ---------- */
+  function initPhotoSlider(sliderId){
+    var slider = document.getElementById(sliderId);
     if(!slider) return;
     var slides = Array.prototype.slice.call(slider.querySelectorAll('.hero__slide'));
     var dotsWrap = slider.querySelector('.hero__dots');
     var current = 0;
+    if(!slides.length || !dotsWrap) return;
 
     slides.forEach(function(img, i){
       var dot = document.createElement('button');
@@ -990,7 +1001,10 @@
     if(slides.length > 1 && !reduceMotion){
       setInterval(next, 4500);
     }
-  })();
+  }
+
+  initPhotoSlider('heroSlider');
+  initPhotoSlider('teamSlider');
 
   /* ---------- Floating CTA visibility ---------- */
   var floatingCta = document.getElementById('floatingCta');
