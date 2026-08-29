@@ -243,7 +243,31 @@
     width:7px; height:7px; padding:0; border:none; border-radius:50%;
     background:rgba(255,255,255,0.65); cursor:pointer;
   }
-  .hero__dots button.is-active{background:#fff;}
+  .hero__dots button.is-active{background:#fff; border-color:var(--ink); transform:scale(1.25);}
+  .hero__arrow{
+    position:absolute; top:50%; z-index:3;
+    width:36px; height:36px; padding:0;
+    transform:translateY(-50%);
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid rgba(255,255,255,0.55);
+    border-radius:50%;
+    background:rgba(18,40,38,0.16);
+    color:#fff;
+    font-size:22px; line-height:1;
+    cursor:pointer;
+    opacity:.9;
+    transition:background .15s ease, opacity .15s ease, transform .15s ease;
+  }
+  .hero__arrow:hover{background:rgba(18,40,38,0.48); opacity:1;}
+  .hero__arrow--prev{left:12px;}
+  .hero__arrow--next{right:12px;}
+  .hero__arrow:active{transform:translateY(-50%) scale(.96);}
+  .hero__dots button{
+    width:10px; height:10px;
+    border:1px solid rgba(18,40,38,0.8);
+    box-shadow:0 0 0 1px rgba(255,255,255,0.35);
+    background:rgba(255,255,255,0.78);
+  }
 
   /* ---------- SECTION DIVIDER (route curve, signature element) ---------- */
   .route-divider{
@@ -286,6 +310,16 @@
   .pain-card__icon svg{width:24px; height:24px;}
   .pain-card h3{font-size:1.08rem; margin-bottom:8px;}
   .pain-card p{color:var(--ink-soft); font-size:0.96rem;}
+
+  /* ---------- STATS ---------- */
+  .stats-section{background:var(--tint);}
+  .stats-section__inner{max-width:1120px;}
+  .stats-section__head{text-align:center; max-width:640px; margin:0 auto 28px;}
+  .stats-section__head h2{font-size:clamp(1.6rem,1.3rem + 1.4vw,2.3rem); margin-bottom:8px;}
+  .stats-section__head p{color:var(--ink-soft);}
+  .stats-section__cta{text-align:center; margin-top:24px;}
+  .stats-section__button{display:inline-block; background:var(--warm); color:#fff; padding:13px 24px; border-radius:999px; font-weight:700; text-decoration:none;}
+  .stats-section__button:hover{background:var(--warm-deep);}
 
   /* ---------- PROCESS (vertical timeline) ---------- */
   .process__list{
@@ -366,12 +400,12 @@
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   }
   .about__profile{
-    display:flex; align-items:flex-start; flex-wrap:wrap; gap:20px;
+    display:flex; align-items:stretch; flex-wrap:wrap; gap:20px;
     max-width:800px; margin-inline:auto; margin-bottom:32px;
   }
   .about__avatar{
     position:relative; overflow:hidden;
-    flex:none; width:120px; height:180px; border-radius:12%;
+    flex:none; width:180px; height:auto; min-height:220px; border-radius:12%;
     background:var(--tint-strong); border:1px dashed var(--accent-deep);
   }
   .about__avatar-fallback{
@@ -383,6 +417,9 @@
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   }
   .about__profile-text{flex:1; min-width:240px;}
+  @media (max-width:600px){
+    .about__avatar{width:140px; min-height:180px;}
+  }
   .about__name{font-family:var(--font-display); font-size:1.3rem; font-weight:600; color:var(--accent-ink); margin-bottom:2px;}
   .about__role{font-size:0.9rem; font-weight:700; color:var(--accent-deep); margin-bottom:16px;}
   .about__credentials{display:flex; flex-direction:column; gap:9px; max-width:52ch;}
@@ -619,10 +656,40 @@
         <img class="hero__slide" src="assets/hero-18.jpg" alt="Команда на корпоративному велозаході VeloCity" onerror="this.dataset.broken='1';this.style.display='none';">
         <img class="hero__slide" src="assets/hero-19.jpg" alt="Команда на корпоративному велозаході VeloCity" onerror="this.dataset.broken='1';this.style.display='none';">
         <img class="hero__slide" src="assets/hero-20.jpg" alt="Команда на корпоративному велозаході VeloCity" onerror="this.dataset.broken='1';this.style.display='none';">
+        <button class="hero__arrow hero__arrow--prev" type="button" aria-label="Попереднє фото">&#10094;</button>
+        <button class="hero__arrow hero__arrow--next" type="button" aria-label="Наступне фото">&#10095;</button>
         <div class="hero__dots" aria-hidden="true"></div>
       </div>
     </div>
   </section>
+
+  <!-- ================= STATS ================= -->
+  <section class="stats-section">
+    <div class="stats-section__inner container">
+      <div class="stats-section__head reveal">
+        <h2>Нам довіряють організацію велозаходів</h2>
+        <p>Досвід, масштаб і оцінка клієнтів — у трьох цифрах.</p>
+      </div>
+            <div class="about__stats">
+        <div class="stat-card">
+          <span class="stat-card__num" data-i18n="about.stat1.num">100+</span>
+          <span class="stat-card__label" data-i18n="about.stat1.label">учасників на заході</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__num" data-i18n="about.stat2.num">з 2017</span>
+          <span class="stat-card__label" data-i18n="about.stat2.label">року проводимо велозаходи</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__num" data-i18n="about.stat3.num">9,9/10</span>
+          <span class="stat-card__label" data-i18n="about.stat3.label">середня оцінка клієнтів</span>
+        </div>
+      </div>
+      <div class="stats-section__cta reveal">
+        <a href="#form" class="stats-section__button">Отримати варіанти для моєї команди</a>
+      </div>
+    </div>
+  </section>
+
 
   <svg class="route-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0,20 C300,60 500,0 700,25 C900,50 1050,10 1200,30 L1200,60 L0,60 Z" fill="var(--tint)"></path>
@@ -770,12 +837,14 @@
         <img class="hero__slide" src="assets/team-photo-18.jpg" alt="Команда VeloCity на корпоративному велозаході" onerror="this.dataset.broken='1';this.style.display='none';">
         <img class="hero__slide" src="assets/team-photo-19.jpg" alt="Команда VeloCity на корпоративному велозаході" onerror="this.dataset.broken='1';this.style.display='none';">
         <img class="hero__slide" src="assets/team-photo-20.jpg" alt="Команда VeloCity на корпоративному велозаході" onerror="this.dataset.broken='1';this.style.display='none';">
+        <button class="hero__arrow hero__arrow--prev" type="button" aria-label="Попереднє фото">&#10094;</button>
+        <button class="hero__arrow hero__arrow--next" type="button" aria-label="Наступне фото">&#10095;</button>
         <div class="hero__dots" aria-hidden="true"></div>
       </div>
 
       <div class="about__team-caption reveal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"></path></svg>
-        <p data-i18n="about.teamCaption">Вас супроводжують досвідчені веломаршали, які регулярно працюють з групами та мають підготовку з надання домендичної допомоги  — це ваша гарантія безпеки і гарного настрою.</p>
+        <p data-i18n="about.teamCaption">Вас супроводжують досвідчені веломаршали, які регулярно працюють з групами та мають підготовку з надання домедичної допомоги  — це ваша гарантія безпеки і гарного настрою.</p>
       </div>
 
       <div class="about__profile reveal">
@@ -797,20 +866,6 @@
         </div>
       </div>
 
-      <div class="about__stats">
-        <div class="stat-card">
-          <span class="stat-card__num" data-i18n="about.stat1.num">100+</span>
-          <span class="stat-card__label" data-i18n="about.stat1.label">учасників на заході</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-card__num" data-i18n="about.stat2.num">з 2017</span>
-          <span class="stat-card__label" data-i18n="about.stat2.label">року проводимо велозаходи</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-card__num" data-i18n="about.stat3.num">9,9/10</span>
-          <span class="stat-card__label" data-i18n="about.stat3.label">середня оцінка клієнтів</span>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -823,11 +878,13 @@
       </div>
       <div class="testimonials__grid">
         <div class="quote-card reveal">
-          <p class="quote-text" data-i18n="testimonials.quote1.text">«30 травня ми разом із командою Катерини вирушили у велопрогулянку, яка залишила по-справжньому незабутні враження.
-Перед організаторами стояла непроста задача: розробити маршрут для 35 людей — різного віку, з різною фізичною підготовкою. Хотілося, щоб було цікаво, не надто складно, але й не нудно. І все це — на тлі дощового тижня 😅</p>
-Катерина не лише не злякалась виклику, а ще й змогла знайти у всьому позитив. Її команда підготувала збалансований маршрут, подбала про супровід і безпеку, а наші гіди були поруч протягом усього заїзду — підтримували, підказували, мотивували.</p>
-Організація пройшла настільки легко і злагоджено, що для нас, як для замовників, це було справжнім задоволенням.
-Щиро рекомендуємо команду Катерини для організації активного й натхненного командного відпочинку!»</p>
+          <div class="quote-text">
+            <p>«30 травня ми разом із командою Катерини вирушили у велопрогулянку, яка залишила по-справжньому незабутні враження.</p>
+            <p>Перед організаторами стояла непроста задача: розробити маршрут для 35 людей — різного віку, з різною фізичною підготовкою. Хотілося, щоб було цікаво, не надто складно, але й не нудно. І все це — на тлі дощового тижня 😅</p>
+            <p>Катерина не лише не злякалась виклику, а ще й змогла знайти у всьому позитив. Її команда підготувала збалансований маршрут, подбала про супровід і безпеку, а наші гіди були поруч протягом усього заїзду — підтримували, підказували, мотивували.</p>
+            <p>Організація пройшла настільки легко і злагоджено, що для нас, як для замовників, це було справжнім задоволенням.</p>
+            <p>Щиро рекомендуємо команду Катерини для організації активного й натхненного командного відпочинку!»</p>
+          </div>
           <div class="quote-card__author">
             <span class="avatar-initials" aria-hidden="true">ІК</span>
             <div>
@@ -996,38 +1053,94 @@
   function initPhotoSlider(sliderId){
     var slider = document.getElementById(sliderId);
     if(!slider) return;
+
     var slides = Array.prototype.slice.call(slider.querySelectorAll('.hero__slide'));
     var dotsWrap = slider.querySelector('.hero__dots');
-    var current = 0;
+    var prevBtn = slider.querySelector('.hero__arrow--prev');
+    var nextBtn = slider.querySelector('.hero__arrow--next');
     if(!slides.length || !dotsWrap) return;
 
-    slides.forEach(function(img, i){
-      var dot = document.createElement('button');
-      dot.type = 'button';
-      dot.setAttribute('aria-label', 'Фото ' + (i + 1));
-      if(i === 0) dot.classList.add('is-active');
-      dot.addEventListener('click', function(){ goTo(i); });
-      dotsWrap.appendChild(dot);
-    });
-    var dots = Array.prototype.slice.call(dotsWrap.children);
+    var current = 0;
+    var timer = null;
 
-    function goTo(idx){
-      slides[current].classList.remove('is-active');
-      dots[current].classList.remove('is-active');
-      current = idx;
-      slides[current].classList.add('is-active');
-      dots[current].classList.add('is-active');
+    function available(img){ return img && img.dataset.broken !== '1'; }
+    function validSlides(){ return slides.filter(available); }
+
+    function renderDots(){
+      dotsWrap.innerHTML = '';
+      slides.forEach(function(img, i){
+        if(!available(img)) return;
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', 'Фото ' + (i + 1));
+        dot.addEventListener('click', function(){ goTo(i, true); });
+        dotsWrap.appendChild(dot);
+      });
+      updateDots();
     }
-    function next(){
-      var idx = current;
-      for(var i = 0; i < slides.length; i++){
-        idx = (idx + 1) % slides.length;
-        if(slides[idx].dataset.broken !== '1'){ goTo(idx); return; }
+
+    function updateDots(){
+      Array.prototype.slice.call(dotsWrap.children).forEach(function(dot){
+        var n = parseInt((dot.getAttribute('aria-label') || '').replace(/\D/g,''),10) - 1;
+        dot.classList.toggle('is-active', n === current);
+        dot.setAttribute('aria-current', n === current ? 'true' : 'false');
+      });
+    }
+
+    function goTo(index, manual){
+      if(!available(slides[index])) return;
+      slides.forEach(function(img){ img.classList.remove('is-active'); });
+      current = index;
+      slides[current].classList.add('is-active');
+      updateDots();
+      if(manual) restart();
+    }
+
+    function step(direction){
+      var list = validSlides();
+      if(list.length < 2) return;
+      var pos = list.indexOf(slides[current]);
+      if(pos < 0) pos = 0;
+      var next = list[(pos + direction + list.length) % list.length];
+      goTo(slides.indexOf(next), true);
+    }
+
+    function restart(){
+      if(timer) clearInterval(timer);
+      if(!reduceMotion && validSlides().length > 1){
+        timer = setInterval(function(){ step(1); }, 4500);
       }
     }
-    if(slides.length > 1 && !reduceMotion){
-      setInterval(next, 4500);
-    }
+
+    slides.forEach(function(img){
+      img.addEventListener('load', function(){
+        img.dataset.broken = '0';
+        if(!slides[current] || !available(slides[current])){
+          var first = slides.findIndex(available);
+          if(first >= 0) goTo(first);
+        }
+        renderDots();
+        restart();
+      });
+      img.addEventListener('error', function(){
+        img.dataset.broken = '1';
+        img.classList.remove('is-active');
+        renderDots();
+        if(slides[current] === img){
+          var first = slides.findIndex(available);
+          if(first >= 0) goTo(first);
+        }
+        restart();
+      });
+    });
+
+    if(prevBtn) prevBtn.addEventListener('click', function(){ step(-1); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ step(1); });
+
+    var first = slides.findIndex(available);
+    if(first >= 0) goTo(first);
+    renderDots();
+    restart();
   }
 
   initPhotoSlider('heroSlider');
